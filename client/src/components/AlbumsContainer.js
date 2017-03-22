@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import Match from 'react-router/Match';
 import Album from './Album';
+import VerticalMenu from './VerticalMenu';
 import {client} from '../Client';
+
 
 const ALBUM_IDS = [
   '23O4F21GDWiGd33tFN3ZgI',
@@ -32,23 +34,36 @@ class AlbumsContainer extends Component {
 		client.getAlbums(ALBUM_IDS)
 			.then((albums) => {
 				console.log(albums);
+				this.setState({
+					fetched: true,
+					albums: albums
+				})
 			})
 	}
 
 	render() {
-		if(false) {
+		if(!this.state.fetched) {
 			return (
 				<div className='ui active centered inline loader' />
 			);
 		} else {
 			return (
 				<div className='ui two column divided grid'>
-					<div className='ui two column divided grid'>
-						<div className='ui six wide column'
-								style={{maxWidth: 250}}
-						>
-
-						</div>
+					<div className='ui six wide column'
+							style={{maxWidth: 250}}>
+						<VerticalMenu albums={this.state.albums} />
+					</div>
+					<div className='ui ten wide column'>
+						<Match pattern='/albums/:albumId'
+							render={({params}) => {
+								const album = this.state.albums.find(
+									(a) => a.id === params.albumId
+								);
+								return (
+									<Album album={album} />
+								)
+							}}
+						/>
 					</div>
 				</div>
 			);

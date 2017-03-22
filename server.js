@@ -54,8 +54,6 @@ app.get('/api/check_token', (req,res) => {
 
 app.get('/api/albums', (req, res) => {
   const albumIds = req.query.ids.split(',');
-  // console.log(albumIds);
-  // console.log(req.query.ids);
 
   getAlbums(albumIds).then((albums) => (
     res.json(albums)
