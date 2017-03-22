@@ -5,6 +5,10 @@ import camelcaseKeys from 'camelcase-keys';
 
 const BASE_URI = 'https://api.spotify.com/v1';
 
+function getFirstImageUrl = (images) => (
+	images && images[0] && images[0].url
+);
+
 function get(url) {
 	return fetch(url, {
 		method: 'get',
@@ -34,8 +38,31 @@ function parseJson(res) {
 function parseAlbum(album) {
 	return {
     id: album.id,
-
+    tracks: album.tracks && album.track.items.map((i) => parseTrack(i)),
+    artist: parseArtist(album.artist[0]),
+    year: album.releaseDate && album.releaseDate.slice(0, 4),
+    imageUrl: getFirstImageUrl(album.images),
+    name: album.name.replace(/\s\(.+\)$/, '')
   };
+}
+
+function parseArtist(artist) {
+	return {
+		imageUrl: getFirstImageUrl(artist.images),
+		name: artist.name,
+		id: artist.id
+	};
+}
+
+function parseTrack(track) {
+	return {
+		albumImage: track.album && getFirstImageUrl(track.album.images),
+		name: track.name,
+		durationMs: track.durationMs,
+		id: track.id,
+		trackNumber: track.trackNumber,
+		previewUrl: track.previewUrl
+	};
 }
 
 export function getAlbum(albumId) {
@@ -54,7 +81,7 @@ export function getAlbums(albumIds) {
 
 
 const SpotifyClient = {
-	getAlbum
+	getAlbums
 }
 
 export default SpotifyClient;

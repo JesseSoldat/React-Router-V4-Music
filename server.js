@@ -1,6 +1,8 @@
 import express from 'express';
 import morgan from 'morgan';
 
+import {getAlbums} from './SpotifyClient';
+
 const app = express();
 
 app.set('port', (process.env.API_PORT || 3001));
