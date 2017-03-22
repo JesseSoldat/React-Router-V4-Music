@@ -52,10 +52,20 @@ app.get('/api/check_token', (req,res) => {
 	}
 });
 
-app.get('/api/albums', authenticatedRoute, (req,res) => {
-	const albumIds = req.query.ids.split(',');
+app.get('/api/albums', (req, res) => {
+  const albumIds = req.query.ids.split(',');
+  // console.log(albumIds);
+  // console.log(req.query.ids);
 
-
+  getAlbums(albumIds).then((albums) => (
+    res.json(albums)
+  )).catch((error) => (
+    res.status(500).json({
+      success: false,
+      message: 'There was an error when interfacing with Spotify',
+      error: error,
+    })
+  ));
 });
 
 

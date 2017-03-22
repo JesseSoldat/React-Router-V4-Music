@@ -5,7 +5,7 @@ import camelcaseKeys from 'camelcase-keys';
 
 const BASE_URI = 'https://api.spotify.com/v1';
 
-function getFirstImageUrl = (images) => (
+const getFirstImageUrl = (images) => (
 	images && images[0] && images[0].url
 );
 
@@ -38,8 +38,8 @@ function parseJson(res) {
 function parseAlbum(album) {
 	return {
     id: album.id,
-    tracks: album.tracks && album.track.items.map((i) => parseTrack(i)),
-    artist: parseArtist(album.artist[0]),
+    tracks: album.tracks && album.tracks.items.map((i) => parseTrack(i)),
+    artist: parseArtist(album.artists[0]),
     year: album.releaseDate && album.releaseDate.slice(0, 4),
     imageUrl: getFirstImageUrl(album.images),
     name: album.name.replace(/\s\(.+\)$/, '')
@@ -74,9 +74,11 @@ export function getAlbum(albumId) {
 export function getAlbums(albumIds) {
 	return get(
 		BASE_URI + '/albums?ids=' + albumIds.join(',')
-	).then((data) => (
-		data.albums.map( (a) => parseAlbum(a))
-	));
+	).then((data) => {
+		return data.albums.map( (a) => parseAlbum(a))
+
+	}
+	);
 }
 
 
