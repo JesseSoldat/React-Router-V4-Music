@@ -6,15 +6,13 @@ const TopBar = () => (
 	<div className='ui huge top attached fluid secondary menu'>
 		<div className='item' />
 		<div className='item'>
-			<h1 style={{marginTop: '10px'}}>
-				<Link className='ui green header' to='/'>
+			<h1 className='ui green header' style={{marginTop: '10px'}}>	
 					Notify
-				</Link>
 			</h1>
 		</div>
 		
 			{
-				false ? (
+				(client.isLoggedIn()) ? (
 					<div className='right menu'>
 						<Link className='ui item' to='/albums'>
 							Albums

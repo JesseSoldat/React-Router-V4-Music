@@ -5,7 +5,7 @@ import Redirect from 'react-router/Redirect';
 class Login extends Component {
 	constructor(props) {
 	  super(props);
-	  // console.log(props);
+	  console.log(props);
 	
 	  this.state = {
 	  	loginInProgress: false,
@@ -13,6 +13,7 @@ class Login extends Component {
 	  };
 
 	  this.performLogin = this.performLogin.bind(this);
+	  this.redirectPath = this.redirectPath.bind(this);
 	}
 
 	performLogin() {
@@ -33,7 +34,7 @@ class Login extends Component {
 	render() {
 		if(this.state.shouldRedirect) {
 			return (
-				<Redirect to='/albums' />
+				<Redirect to={this.redirectPath()} />
 			);
 		} else {
 			return (

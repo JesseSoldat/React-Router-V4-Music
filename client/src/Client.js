@@ -16,6 +16,10 @@ class Client {
 		}  
 	}
 
+	isLoggedIn() {
+		return !!this.token;
+	}
+
 	login() {
 		return fetch('/api/login', {
 			method: 'post',
@@ -28,7 +32,7 @@ class Client {
 	}
 
 	logout() {
-		this.remove.Token();
+		this.removeToken();
 	}
 
 	removeToken() {

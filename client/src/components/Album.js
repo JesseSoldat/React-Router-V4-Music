@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'react-router/Link';
+import {durationToHuman} from '../Helpers';
 import '../styles/Album.css'; 
 
 const Album = ({album, albumsPathname}) => (
@@ -44,7 +45,7 @@ const Album = ({album, albumsPathname}) => (
 								<td>{track.trackNumber}</td>
 								<td>{track.name}</td>
 								<td>
-									{track.durationMs}
+									{durationToHuman(track.durationMs)}
 								</td>
 							</tr>
 						))
