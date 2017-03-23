@@ -31,7 +31,8 @@ class AlbumsContainer extends Component {
 	}
 
 	getAlbums() {
-		client.setToken('D6W69PRgCoDKgHZGJmRUNA');
+		// client.setToken('D6W69PRgCoDKgHZGJmRUNA');
+		//does this on login
 		client.getAlbums(ALBUM_IDS)
 			.then((albums) => {
 				// console.log(albums);

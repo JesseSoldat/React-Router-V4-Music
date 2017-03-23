@@ -13,7 +13,15 @@ const VerticalMenu = ({albums, albumsPathname}) => (
 				<Link to={`${albumsPathname}/${album.id}`}
 						className='item'
 						key={album.id}
-				> {album.name}
+				>{
+					({onClick, href, isActive}) => (
+						<a className={isActive ? 'active item' : 'item'}
+							onClick={onClick}
+							href={href}>
+							{album.name}
+						</a>
+					)
+				}
 				</Link>
 			))
 		}

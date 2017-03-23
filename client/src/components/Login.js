@@ -1,15 +1,25 @@
 import React, {Component} from 'react';
-
+import {client} from '../Client';
 import Redirect from 'react-router/Redirect';
 
 class Login extends Component {
 	constructor(props) {
 	  super(props);
+	  // console.log(props);
 	
 	  this.state = {
 	  	loginInProgress: false,
 	  	shouldRedirect: false
 	  };
+
+	  this.performLogin = this.performLogin.bind(this);
+	}
+
+	performLogin() {
+		this.setState({loginInProgress: true});
+		client.login().then( () => (
+			this.setState({shouldRedirect: true})
+		));
 	}
 
 	redirectPath() {
@@ -23,7 +33,7 @@ class Login extends Component {
 	render() {
 		if(this.state.shouldRedirect) {
 			return (
-				<Redirect to={this.redirectPath()} />
+				<Redirect to='/albums' />
 			);
 		} else {
 			return (
@@ -35,6 +45,16 @@ class Login extends Component {
 							<h2 className='ui green header'>
 								Notify
 							</h2>
+							{
+								this.state.loginInProgress ? (
+									<div className='ui active centered inline loader'/>
+								) : (
+									<div className='ui large green submit button'
+										onClick={this.performLogin}>
+										Login
+									</div>
+								)
+							}
 						</div>
 					</div>
 				</div>

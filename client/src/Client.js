@@ -13,8 +13,30 @@ class Client {
 			if(this.token) {
 
 			}
+		}  
+	}
+
+	login() {
+		return fetch('/api/login', {
+			method: 'post',
+			headers: {
+				accept: 'application/json'
+			}
+		}).then(this.checkStatus)
+			.then(this.parseJson)
+			.then( (json) => this.setToken(json.token));
+	}
+
+	logout() {
+		this.remove.Token();
+	}
+
+	removeToken() {
+		this.token = null;
+
+		if(this.useLocalStorage) {
+			localStorage.removeItem(LOCAL_STORAGE_KEY);
 		}
-	  
 	}
 
 	setToken(token) {

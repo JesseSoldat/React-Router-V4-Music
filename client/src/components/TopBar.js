@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'react-router/Link';
+import {client} from '../Client';
 
 const TopBar = () => (
 	<div className='ui huge top attached fluid secondary menu'>
@@ -13,18 +14,18 @@ const TopBar = () => (
 		</div>
 		
 			{
-				true ? (
+				false ? (
 					<div className='right menu'>
 						<Link className='ui item' to='/albums'>
 							Albums
 						</Link>
-						<Link className='ui item' to='/'>
+						<Link className='ui item' to='/logout'>
 							Logout
 						</Link>
 					</div>
 				) : (
 					<div className='right menu'>
-						<Link className='ui item' to='/'>
+						<Link className='ui item' to='/login'>
 							Login
 						</Link>
 					</div>

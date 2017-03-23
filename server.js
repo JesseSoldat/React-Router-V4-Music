@@ -52,7 +52,7 @@ app.get('/api/check_token', (req,res) => {
 	}
 });
 
-app.get('/api/albums', (req, res) => {
+app.get('/api/albums', authenticatedRoute, (req, res) => {
   const albumIds = req.query.ids.split(',');
 
   getAlbums(albumIds).then((albums) => (
