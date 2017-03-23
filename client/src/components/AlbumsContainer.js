@@ -21,6 +21,7 @@ class AlbumsContainer extends Component {
 	  	fetched: false,
 	  	albums: []
 	  };
+	  // console.log(props);
 
 	  this.getAlbums = this.getAlbums.bind(this);
 	}
@@ -33,7 +34,7 @@ class AlbumsContainer extends Component {
 		client.setToken('D6W69PRgCoDKgHZGJmRUNA');
 		client.getAlbums(ALBUM_IDS)
 			.then((albums) => {
-				console.log(albums);
+				// console.log(albums);
 				this.setState({
 					fetched: true,
 					albums: albums
@@ -51,16 +52,18 @@ class AlbumsContainer extends Component {
 				<div className='ui two column divided grid'>
 					<div className='ui six wide column'
 							style={{maxWidth: 250}}>
-						<VerticalMenu albums={this.state.albums} />
+						<VerticalMenu albums={this.state.albums}
+								albumsPathname={this.props.pathname} />
 					</div>
 					<div className='ui ten wide column'>
-						<Match pattern='/albums/:albumId'
+						<Match pattern={`${this.props.pathname}/:albumId`}
 							render={({params}) => {
 								const album = this.state.albums.find(
 									(a) => a.id === params.albumId
 								);
 								return (
-									<Album album={album} />
+									<Album album={album}
+										albumsPathname={this.props.pathname} />
 								)
 							}}
 						/>

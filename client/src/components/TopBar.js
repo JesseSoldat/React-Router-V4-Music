@@ -5,23 +5,32 @@ const TopBar = () => (
 	<div className='ui huge top attached fluid secondary menu'>
 		<div className='item' />
 		<div className='item'>
-			<h1 className='ui green header' style={{marginTop: '10px'}}>
-				Notify
+			<h1 style={{marginTop: '10px'}}>
+				<Link className='ui green header' to='/'>
+					Notify
+				</Link>
 			</h1>
 		</div>
-		<div className='right menu'>
+		
 			{
 				true ? (
-					<Link className='ui item' to='/'>
-						Logout
-					</Link>
+					<div className='right menu'>
+						<Link className='ui item' to='/albums'>
+							Albums
+						</Link>
+						<Link className='ui item' to='/'>
+							Logout
+						</Link>
+					</div>
 				) : (
-					<Link className='ui item' to='/'>
-						Login
-					</Link>
+					<div className='right menu'>
+						<Link className='ui item' to='/'>
+							Login
+						</Link>
+					</div>
 				)
 			}
-		</div>
+	
 	</div>
 
 );
